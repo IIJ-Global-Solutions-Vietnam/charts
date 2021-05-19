@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "namespace-admission-controller.validating.fullname" . }}
+  labels:
+    {{- include "namespace-admission-controller.validating.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "namespace-admission-controller.validating.selectorLabels" . | nindent 4 }}
+  ports:
+  - port: 443
+    targetPort: 8080

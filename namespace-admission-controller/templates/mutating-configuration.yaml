@@ -1,0 +1,25 @@
+{{ $tls := fromYaml ( include "admission-controller.gen-certs" . ) }}
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ include "namespace-admission-controller.mutating.fullname" . }}
+  labels:
+    {{- include "namespace-admission-controller.mutating.labels" . | nindent 4 }}
+webhooks:
+- name: {{ include "namespace-admission-controller.mutating.service.fullname" . }}
+  admissionReviewVersions:
+  - v1beta1
+  clientConfig:
+    caBundle: {{ $tls.caCert }}
+    service:
+      name: {{ include "namespace-admission-controller.mutating.fullname" . }}
+      namespace: {{ .Release.Namespace }}
+      path: "/"
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["CREATE"]
+    resources: ["namespaces"]
+  sideEffects: None
+  timeoutSeconds: 5
