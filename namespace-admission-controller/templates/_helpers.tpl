@@ -158,7 +158,7 @@ Generate client key and cert from CA
 {{- define "admission-controller.mutating.gen-client-tls" -}}
 {{- $altNames := list ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.name" .RootScope)  -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
-{{- $cert := genSignedCert ( include "namespace-admission-controller.mutating.fullname" .RootScope) nil $altNames $expiration .CA -}}
+{{- $cert := genSignedCert ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) nil $altNames $expiration .CA -}}
 {{- $clientCA := .CA.Cert | b64enc -}}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc -}}
@@ -184,7 +184,7 @@ Generate client key and cert from CA
 {{- define "admission-controller.validating.gen-client-tls" -}}
 {{- $altNames := list ( include "namespace-admission-controller.validating.service.fullname" .RootScope) ( include "namespace-admission-controller.validating.service.name" .RootScope)   -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
-{{- $cert := genSignedCert ( include "namespace-admission-controller.validating.fullname" .RootScope) nil $altNames $expiration .CA -}}
+{{- $cert := genSignedCert ( include "namespace-admission-controller.validating.service.fullname" .RootScope) nil $altNames $expiration .CA -}}
 {{- $clientCA := .CA.Cert | b64enc -}}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc -}}
