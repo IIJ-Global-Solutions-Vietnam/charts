@@ -49,7 +49,7 @@ spec:
       volumes:
         - name: {{ include "namespace-admission-controller.mutating.fullname" . }}
           secret:
-            secretName: {{ include "namespace-admission-controller.fullname" . }}
+            secretName: {{ include "namespace-admission-controller.mutating.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
