@@ -6,12 +6,12 @@ Expand the name of the chart.
 {{- end }}
 
 {{- define "namespace-admission-controller.mutating.name" -}}
-{{- $defaultName := printf "%s-mutating" .Chart.Name }}
+{{- $defaultName := printf "mutating-%s" .Chart.Name }}
 {{- default $defaultName .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{- define "namespace-admission-controller.validating.name" -}}
-{{- $defaultName := printf "%s-validating" .Chart.Name }}
+{{- $defaultName := printf "validating-%s" .Chart.Name }}
 {{- default $defaultName .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -30,7 +30,7 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "namespace-admission-controller.mutating.fullname" -}}
-{{- $defaultName := printf "%s-mutating" .Chart.Name }}
+{{- $defaultName := printf "mutating-%s" .Chart.Name }}
 {{- $name := default $defaultName .Values.mutatingController.nameOverride }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
@@ -40,7 +40,7 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "namespace-admission-controller.validating.fullname" -}}
-{{- $defaultName := printf "%s-validating" .Chart.Name }}
+{{- $defaultName := printf "validating-%s" .Chart.Name }}
 {{- $name := default $defaultName .Values.validatingController.nameOverride }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
@@ -156,7 +156,7 @@ Generate certificates for admission-controller webhooks
 Generate client key and cert from CA
 */}}
 {{- define "admission-controller.gen-client-tls" -}}
-{{- $altNames := list ( include "namespace-admission-controller.validating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) -}}
+{{- $altNames := list ( include "namespace-admission-controller.validating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) ( include "namespace-admission-controller.validating.service.name" .RootScope) ( include "namespace-admission-controller.mutating.service.name" .RootScope)  -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert ( include "namespace-admission-controller.fullname" .RootScope) nil $altNames $expiration .CA -}}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}

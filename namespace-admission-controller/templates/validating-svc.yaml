@@ -5,8 +5,9 @@ metadata:
   labels:
     {{- include "namespace-admission-controller.validating.labels" . | nindent 4 }}
 spec:
-  selector:
-    {{- include "namespace-admission-controller.validating.selectorLabels" . | nindent 4 }}
   ports:
   - port: 443
     targetPort: 8080
+    protocol: TCP
+  selector:
+    {{- include "namespace-admission-controller.validating.selectorLabels" . | nindent 4 }}
