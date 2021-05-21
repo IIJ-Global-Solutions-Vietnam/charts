@@ -181,7 +181,7 @@ clientKey: {{ $clientKey }}
 {{/*
 Generate client key and cert from CA
 */}}
-{{- define "admission-controller.validating-gen-client-tls" -}}
+{{- define "admission-controller.validating.gen-client-tls" -}}
 {{- $altNames := list ( include "namespace-admission-controller.validating.service.fullname" .RootScope) ( include "namespace-admission-controller.validating.service.name" .RootScope)   -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert ( include "namespace-admission-controller.validating.fullname" .RootScope) nil $altNames $expiration .CA -}}
