@@ -155,7 +155,7 @@ Generate certificates for admission-controller webhooks
 {{/*
 Generate client key and cert from CA
 */}}
-{{- define "admission-controller.mutating-gen-client-tls" -}}
+{{- define "admission-controller.mutating.gen-client-tls" -}}
 {{- $altNames := list ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.name" .RootScope)  -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert ( include "namespace-admission-controller.mutating.fullname" .RootScope) nil $altNames $expiration .CA -}}
