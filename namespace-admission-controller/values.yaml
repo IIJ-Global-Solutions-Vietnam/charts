@@ -84,7 +84,6 @@ admissionCA:
   # disable if manually creating certs
   # provide cert and key via --set-file
   create: true
-  bunndleCA:
   cert:
   key:
   # Expiry time of CA in days for generated certs

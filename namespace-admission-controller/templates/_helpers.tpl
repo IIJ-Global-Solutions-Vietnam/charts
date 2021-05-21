@@ -161,7 +161,7 @@ Generate client key and cert from CA
 {{- $cert := genSignedCert ( include "namespace-admission-controller.fullname" .RootScope) nil $altNames $expiration .CA -}}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc -}}
-caCert: {{ .CA.Cert | b64enc }}
+caCert: {{ .CA.Cert | b64enc -}}
 clientCert: {{ $clientCert }}
 clientKey: {{ $clientKey }}
 {{- end -}}
