@@ -159,9 +159,10 @@ Generate client key and cert from CA
 {{- $altNames := list ( include "namespace-admission-controller.validating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) ( include "namespace-admission-controller.validating.service.name" .RootScope) ( include "namespace-admission-controller.mutating.service.name" .RootScope)  -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert ( include "namespace-admission-controller.fullname" .RootScope) nil $altNames $expiration .CA -}}
+{{- $clientCA := .CA.Cert | b64enc -}}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc -}}
-caCert: {{ .CA.Cert | b64enc -}}
+caCert: {{ $clientCA }}
 clientCert: {{ $clientCert }}
 clientKey: {{ $clientKey }}
 {{- end -}}
