@@ -162,9 +162,9 @@ Generate client key and cert from CA
 {{- $altNames := list ( $altName1 $altName2 ) -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert $cn nil $altNames $expiration .CA }}
-{{- $clientCA := .CA.Cert | b64enc }}
-{{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc }}
-{{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc }}
+{{- $clientCA := .CA.Cert | b64enc -}}
+{{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc -}}
+{{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc -}}
 caCert: {{ $clientCA }}
 clientCert: {{ $clientCert }}
 clientKey: {{ $clientKey }}

@@ -11,7 +11,7 @@ webhooks:
   clientConfig:
     caBundle: {{ $tls.caCert }}
     service:
-      name: {{ template "namespace-admission-controller.mutating.service.name" . }}
+      name: {{ include "namespace-admission-controller.mutating.service.name" . }}
       namespace: {{ .Release.Namespace }}
       path: "/"
   rules:
