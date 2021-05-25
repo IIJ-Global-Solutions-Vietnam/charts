@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "namespace-admission-controller.mutating.service.name" . }}
+  labels:
+    {{- include "namespace-admission-controller.mutating.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    {{- include "namespace-admission-controller.mutating.selectorLabels" . | nindent 4 }}
