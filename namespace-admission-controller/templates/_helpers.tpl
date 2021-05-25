@@ -156,7 +156,10 @@ Generate certificates for admission-controller webhooks
 Generate client key and cert from CA
 */}}
 {{- define "admission-controller.mutating.gen-client-tls" -}}
-{{- $altNames := list ( include "namespace-admission-controller.mutating.service.fullname" .RootScope) ( include "namespace-admission-controller.mutating.service.name" .RootScope)  -}}
+{{- $cn := include "namespace-admission-controller.mutating.service.name" . -}}
+{{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
+{{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
+{{- $altNames := list ( $cn $altName1 $altName2 ) -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
 {{- $cert := genSignedCert ( include "namespace-admission-controller.mutating.service.name" .RootScope) nil $altNames $expiration .CA -}}
 {{- $clientCA := .CA.Cert | b64enc -}}
@@ -167,6 +170,9 @@ clientCert: {{ $clientCert }}
 clientKey: {{ $clientKey }}
 {{- end -}}
 
+{{/*
+Generate certificates for admission-controller webhooks
+*/}}
 {{- define "admission-controller.validating.gen-certs" -}}
 {{- $expiration := (.Values.admissionCA.expiration | int) -}}
 {{- if (or (empty .Values.admissionCA.cert) (empty .Values.admissionCA.key)) -}}
