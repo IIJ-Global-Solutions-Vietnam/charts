@@ -159,8 +159,9 @@ Generate client key and cert from CA
 {{- $cn := include "namespace-admission-controller.mutating.service.name" . -}}
 {{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
 {{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
+{{- $altNames := list ( $altName1 $altName2 ) -}}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
-{{- $cert := genSignedCert $cn nil (list $altName1 $altName2) $expiration .CA }}
+{{- $cert := genSignedCert $cn nil $altNames $expiration .CA }}
 {{- $clientCA := .CA.Cert | b64enc }}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc }}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc }}
