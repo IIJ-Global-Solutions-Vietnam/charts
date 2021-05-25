@@ -160,7 +160,7 @@ Generate client key and cert from CA
 {{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
 {{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
 {{- $expiration := (.RootScope.Values.admissionCA.expiration | int) -}}
-{{- $cert := genSignedCert $cn nil list( $altName1 $altName2) $expiration .CA }}
+{{- $cert := genSignedCert $cn nil (list $altName1 $altName2) $expiration .CA }}
 {{- $clientCA := .CA.Cert | b64enc }}
 {{- $clientCert := default $cert.Cert .RootScope.Values.admissionSecret.cert | b64enc }}
 {{- $clientKey := default $cert.Key .RootScope.Values.admissionSecret.key | b64enc }}
