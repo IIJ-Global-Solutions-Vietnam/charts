@@ -8,12 +8,10 @@ metadata:
     {{- include "namespace-admission-controller.mutating.labels" . | nindent 4 }}
 webhooks:
 - name: {{ include "namespace-admission-controller.mutating.service.fullname" . }}
-  admissionReviewVersions:
-  - v1beta1
   clientConfig:
     caBundle: {{ $tls.caCert }}
     service:
-      name: {{ include "namespace-admission-controller.mutating.service.name" . }}
+      name: {{ template "namespace-admission-controller.mutating.service.name" . }}
       namespace: {{ .Release.Namespace }}
       path: "/"
   rules:
