@@ -87,7 +87,7 @@ admissionCA:
   cert:
   key:
   # Expiry time of CA in days for generated certs
-  expiration: 365
+  expiration: 3650
 
 admissionSecret:
   create: true
