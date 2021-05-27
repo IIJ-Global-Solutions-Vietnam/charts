@@ -7,7 +7,7 @@ replicaCount: 1
 mutatingController:
   nameOverride: ""
   image:
-    repository: "docker.pkg.github.com/iij-global-solutions-vietnam/namespace-admission-controller/mutating-ac"
+    repository: "ghcr.io/iij-global-solutions-vietnam/namespace-admission-controller/mutating-ac"
     pullPolicy: "IfNotPresent"
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
@@ -15,7 +15,7 @@ mutatingController:
 validatingController:
   nameOverride: ""
   image:
-    repository: "docker.pkg.github.com/iij-global-solutions-vietnam/namespace-admission-controller/validating-ac"
+    repository: "ghcr.io/iij-global-solutions-vietnam/namespace-admission-controller/validating-ac"
     pullPolicy: "IfNotPresent"
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
