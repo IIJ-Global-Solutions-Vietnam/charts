@@ -10,7 +10,7 @@ mutatingController:
     repository: "ghcr.io/iij-global-solutions-vietnam/namespace-admission-controller/mutating-ac"
     pullPolicy: "IfNotPresent"
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "0.0.2"
+    tag: "0.0.3"
 
 validatingController:
   nameOverride: ""
@@ -18,7 +18,7 @@ validatingController:
     repository: "ghcr.io/iij-global-solutions-vietnam/namespace-admission-controller/validating-ac"
     pullPolicy: "IfNotPresent"
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "0.0.2"
+    tag: "0.0.3"
 
 rancher:
   clusterID: ""
