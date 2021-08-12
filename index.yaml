@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  namespace-admission-controller:
+  - apiVersion: v2
+    appVersion: 1.16.2
+    created: "2021-08-12T09:07:30.83240668Z"
+    description: This is Admission controller that creating a new Rancher project,
+      and adding the annotation to namespace.
+    digest: 1360ab04843d48b8c7d3451f7636f8e522586b5ba6b5a08480b411974de04124
+    name: namespace-admission-controller
+    type: application
+    urls:
+    - namespace-admission-controller-0.1.2.tgz
+    version: 0.1.2
+generated: "2021-08-12T09:07:30.831486909Z"
